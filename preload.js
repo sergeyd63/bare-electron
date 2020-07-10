@@ -1,0 +1,19 @@
+// All of the Node.js APIs are available in the preload process.
+// It has the same sandbox as a Chrome extension.
+window.addEventListener("DOMContentLoaded", () => {
+  const replaceText = (selector, text) => {
+    const element = document.getElementById(selector);
+    if (element) element.innerText = text;
+  };
+
+  for (const type of ["chrome", "node", "electron"]) {
+    replaceText(`${type}-version`, process.versions[type]);
+  }
+
+  const divLinkSubmit = document.getElementById("divSubmitLink");
+  const txtVideoLink = document.getElementById("txtVideoLink");
+  divLinkSubmit.addEventListener("click", (e) => {
+    window.location.href = txtVideoLink.value;
+    // "https://video.dev.zebu.io/#/conference/baseelectron/1/1";
+  });
+});
